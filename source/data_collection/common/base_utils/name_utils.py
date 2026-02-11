@@ -50,4 +50,27 @@ G2_JOINT_NAMES = [
 ]
 
 
+TAKS_T1_JOINT_NAMES = [
+    "left_shoulder_pitch_joint",
+    "left_shoulder_roll_joint",
+    "left_shoulder_yaw_joint",
+    "left_elbow_joint",
+    "left_wrist_roll_joint",
+    "left_wrist_yaw_joint",
+    "left_wrist_pitch_joint",
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_yaw_joint",
+    "right_wrist_pitch_joint",
+    "neck_yaw_joint",
+    "neck_pitch_joint",
+    "waist_pitch_joint",
+    "waist_roll_joint",
+    "waist_yaw_joint",
+]
+
+
 OMNIPICKER_AJ_NAMES = ["idx41_gripper_l_outer_joint1", "idx81_gripper_r_outer_joint1"]

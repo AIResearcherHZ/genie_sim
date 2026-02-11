@@ -1,0 +1,218 @@
+##
+## Taks_T1 + omnipicker cuRobo configuration
+## Adapted from G1_omnipicker.yml
+##
+
+robot_cfg:
+  kinematics:
+    use_usd_kinematics: False
+    urdf_path: "robot/Taks_T1_omnipicker/Taks_T1_omnipicker.urdf"
+    asset_root_path: "robot/Taks_T1_omnipicker"
+    isaac_usd_path: ""
+    usd_robot_root: null
+    usd_path: null
+
+    base_link: "base_link"
+    ee_link: "gripper_r_center_link"
+    link_names: null
+
+    collision_link_names:
+      [
+        "base_link",
+        "waist_yaw_link",
+        "waist_roll_link",
+        "torso_link",
+        "neck_pitch_link",
+        "right_shoulder_pitch_link",
+        "right_shoulder_roll_link",
+        "right_shoulder_yaw_link",
+        "right_elbow_link",
+        "right_wrist_roll_link",
+        "right_wrist_yaw_link",
+        "right_wrist_pitch_link",
+        "gripper_r_base_link",
+        "gripper_r_inner_link1",
+        "gripper_r_outer_link1",
+        "gripper_r_inner_link3",
+        "gripper_r_outer_link3",
+        "gripper_r_inner_link4",
+        "gripper_r_outer_link4",
+        "attached_object",
+      ]
+
+    collision_spheres:
+      base_link:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.15
+      waist_yaw_link:
+        - "center": [0.0, 0.0, 0.025]
+          "radius": 0.08
+      waist_roll_link:
+        - "center": [-0.036, 0.0, 0.04]
+          "radius": 0.08
+      torso_link:
+        - "center": [0.0, 0.0, 0.1]
+          "radius": 0.12
+        - "center": [0.0, 0.0, 0.2]
+          "radius": 0.12
+        - "center": [0.0, 0.0, 0.3]
+          "radius": 0.1
+      neck_pitch_link:
+        - "center": [0.0, 0.0, 0.05]
+          "radius": 0.08
+      right_shoulder_pitch_link:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.04
+      right_shoulder_roll_link:
+        - "center": [-0.027, 0.0, -0.055]
+          "radius": 0.05
+      right_shoulder_yaw_link:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.04
+        - "center": [0.0, 0.0, -0.086]
+          "radius": 0.04
+        - "center": [0.0, 0.0, -0.043]
+          "radius": 0.04
+      right_elbow_link:
+        - "center": [0.06, -0.027, -0.005]
+          "radius": 0.04
+      right_wrist_roll_link:
+        - "center": [0.059, 0.0, 0.0]
+          "radius": 0.03
+      right_wrist_yaw_link:
+        - "center": [0.0, 0.0, 0.034]
+          "radius": 0.03
+      right_wrist_pitch_link:
+        - "center": [0.073, 0.016, 0.007]
+          "radius": 0.03
+      gripper_r_base_link:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.03
+        - "center": [0.0, 0.0, 0.05]
+          "radius": 0.02
+        - "center": [0.0, -0.015, 0.03]
+          "radius": 0.015
+        - "center": [0.0, 0.015, 0.03]
+          "radius": 0.015
+      gripper_r_inner_link1:
+        - "center": [0.0, 0.003, -0.005]
+          "radius": 0.01
+        - "center": [0.0, 0.003, 0.005]
+          "radius": 0.01
+        - "center": [0.029, 0.022, -0.006]
+          "radius": 0.005
+        - "center": [0.008, 0.008, -0.005]
+          "radius": 0.00871
+        - "center": [0.014, 0.012, -0.005]
+          "radius": 0.00758
+        - "center": [0.02, 0.016, -0.006]
+          "radius": 0.0066
+        - "center": [0.025, 0.019, -0.006]
+          "radius": 0.00574
+        - "center": [0.029, 0.022, 0.008]
+          "radius": 0.005
+        - "center": [0.008, 0.008, 0.006]
+          "radius": 0.00871
+        - "center": [0.014, 0.012, 0.006]
+          "radius": 0.00758
+        - "center": [0.02, 0.016, 0.007]
+          "radius": 0.0066
+        - "center": [0.025, 0.019, 0.008]
+          "radius": 0.00574
+      gripper_r_outer_link1:
+        - "center": [0.007, -0.004, -0.004]
+          "radius": 0.01
+        - "center": [0.007, -0.004, 0.005]
+          "radius": 0.01
+        - "center": [0.033, -0.017, -0.004]
+          "radius": 0.005
+        - "center": [0.033, -0.017, 0.007]
+          "radius": 0.005
+        - "center": [0.015, -0.008, -0.004]
+          "radius": 0.00841
+        - "center": [0.022, -0.012, -0.004]
+          "radius": 0.00707
+        - "center": [0.028, -0.014, -0.004]
+          "radius": 0.00595
+        - "center": [0.015, -0.008, 0.005]
+          "radius": 0.00841
+        - "center": [0.022, -0.012, 0.006]
+          "radius": 0.00707
+        - "center": [0.028, -0.014, 0.007]
+          "radius": 0.00595
+      gripper_r_inner_link3:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.008
+        - "center": [0.017, -0.014, 0.0]
+          "radius": 0.008
+        - "center": [0.009, -0.007, 0.0]
+          "radius": 0.008
+      gripper_r_outer_link3:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.008
+        - "center": [0.018, 0.014, 0.0]
+          "radius": 0.008
+        - "center": [0.009, 0.007, 0.0]
+          "radius": 0.008
+      gripper_r_inner_link4:
+        - "center": [0.0, -0.009, -0.002]
+          "radius": 0.008
+        - "center": [0.0, -0.009, 0.002]
+          "radius": 0.008
+        - "center": [0.036, -0.017, -0.005]
+          "radius": 0.004
+        - "center": [0.036, -0.017, 0.005]
+          "radius": 0.003
+        - "center": [0.012, -0.011, -0.003]
+          "radius": 0.00673
+        - "center": [0.021, -0.013, -0.004]
+          "radius": 0.00566
+        - "center": [0.03, -0.015, -0.005]
+          "radius": 0.00476
+        - "center": [0.012, -0.011, 0.003]
+          "radius": 0.00673
+        - "center": [0.021, -0.013, 0.004]
+          "radius": 0.00566
+        - "center": [0.03, -0.015, 0.005]
+          "radius": 0.00476
+        - "center": [0.013, -0.006, 0.0]
+          "radius": 0.008
+      gripper_r_outer_link4:
+        - "center": [0.005, 0.005, 0.0]
+          "radius": 0.01
+        - "center": [0.016, 0.009, -0.02]
+          "radius": 0.008
+        - "center": [0.016, 0.009, 0.02]
+          "radius": 0.008
+        - "center": [0.037, 0.017, 0.0]
+          "radius": 0.003
+        - "center": [0.03, 0.015, -0.017]
+          "radius": 0.004
+        - "center": [0.03, 0.015, 0.017]
+          "radius": 0.004
+        - "center": [0.015, 0.009, 0.0]
+          "radius": 0.00786
+        - "center": [0.023, 0.012, 0.0]
+          "radius": 0.00618
+        - "center": [0.029, 0.014, 0.0]
+          "radius": 0.00486
+        - "center": [0.033, 0.016, 0.0]
+          "radius": 0.00382
+      attached_object:
+        - "center": [0.0, 0.0, 0.0]
+          "radius": 0.0
+
+  cspace:
+    joint_names:
+      - "right_shoulder_pitch_joint"
+      - "right_shoulder_roll_joint"
+      - "right_shoulder_yaw_joint"
+      - "right_elbow_joint"
+      - "right_wrist_roll_joint"
+      - "right_wrist_yaw_joint"
+      - "right_wrist_pitch_joint"
+    retract_config: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    null_space_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    cspace_distance_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    max_jerk: 500.0
+    max_acceleration: 15.0

@@ -106,6 +106,67 @@ G2_WAIST_JOINT_NAMES = [
     "idx01_body_joint1",
 ]
 
+TAKS_T1_JOINT_NAMES = [
+    "left_shoulder_pitch_joint",
+    "left_shoulder_roll_joint",
+    "left_shoulder_yaw_joint",
+    "left_elbow_joint",
+    "left_wrist_roll_joint",
+    "left_wrist_yaw_joint",
+    "left_wrist_pitch_joint",
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_yaw_joint",
+    "right_wrist_pitch_joint",
+    "neck_yaw_joint",
+    "neck_pitch_joint",
+    "waist_pitch_joint",
+    "waist_roll_joint",
+    "waist_yaw_joint",
+]
+
+TAKS_T1_LEFT_ARM_JOINT_NAMES = [
+    "left_shoulder_pitch_joint",
+    "left_shoulder_roll_joint",
+    "left_shoulder_yaw_joint",
+    "left_elbow_joint",
+    "left_wrist_roll_joint",
+    "left_wrist_yaw_joint",
+    "left_wrist_pitch_joint",
+]
+
+TAKS_T1_RIGHT_ARM_JOINT_NAMES = [
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_yaw_joint",
+    "right_wrist_pitch_joint",
+]
+
+TAKS_T1_DUAL_ARM_JOINT_NAMES = TAKS_T1_LEFT_ARM_JOINT_NAMES + TAKS_T1_RIGHT_ARM_JOINT_NAMES
+
+TAKS_T1_HEAD_JOINT_NAMES = [
+    "neck_yaw_joint",
+    "neck_pitch_joint",
+]
+
+TAKS_T1_WAIST_JOINT_NAMES = [
+    "waist_pitch_joint",
+    "waist_roll_joint",
+    "waist_yaw_joint",
+]
+
+TAKS_T1_CHASSIS = [
+    "base_linear_joint_x",
+    "base_linear_joint_y",
+    "base_angular_joint",
+]
+
 OMNIPICKER_AJ_NAMES = [
     "idx41_gripper_l_outer_joint1",
     "idx81_gripper_r_outer_joint1",
@@ -118,7 +179,9 @@ G1_CHASSIS = [
 
 
 def robot_type_mapping(robot_type):
-    if "G1_omnipicker" in robot_type:
+    if "Taks_T1_omnipicker" in robot_type:
+        return "Taks_T1_omnipicker"
+    elif "G1_omnipicker" in robot_type:
         return "G1_omnipicker"
     elif "G2_omnipicker" in robot_type:
         return "G2_omnipicker"

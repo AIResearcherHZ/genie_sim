@@ -60,10 +60,22 @@ class GripperPassing(EvaluateAction):
                     return False
         return True
 
+    def _get_robot_base(self):
+        robot_cfg = getattr(self.env, 'robot_cfg', None)
+        if robot_cfg is None:
+            robot_cfg = getattr(self.env, 'init_task_config', {}).get('robot_cfg', 'G1_omnipicker')
+        if "Taks_T1" in robot_cfg:
+            return "/Taks_T1"
+        elif "G1" in robot_cfg:
+            return "/G1"
+        else:
+            return "/genie"
+
     def eepose_across_obj(self) -> bool:
         """Detects if the gripper end-effector passes through the object"""
-        left_ee_pose = self.get_world_pose_matrix("/G1/gripper_l_center_link")
-        right_ee_pose = self.get_world_pose_matrix("/G1/gripper_r_center_link")
+        robot_base = self._get_robot_base()
+        left_ee_pose = self.get_world_pose_matrix(f"{robot_base}/gripper_l_center_link")
+        right_ee_pose = self.get_world_pose_matrix(f"{robot_base}/gripper_r_center_link")
         obj_min, obj_max = self.get_obj_aabb_new(self.obj_prim)
         return self.line_aabb_intersect(left_ee_pose[:3, 3], right_ee_pose[:3, 3], obj_min, obj_max)
 

@@ -20,7 +20,9 @@ class RobotCfg(Robot):
             robot_cfg = json.load(f)
         # init robot
         super(RobotCfg, self).__init__(robot_cfg["robot"]["robot_name"])
-        if "G1" in self.robot_name:
+        if "Taks_T1" in self.robot_name:
+            self.robot_generation = "Taks_T1"
+        elif "G1" in self.robot_name:
             self.robot_generation = "G1"
         elif "G2" in self.robot_name:
             self.robot_generation = "G2"

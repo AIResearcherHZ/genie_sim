@@ -46,8 +46,10 @@ class Follow(EvaluateAction):
         robot_cfg = getattr(self.env, 'robot_cfg', None)
         if robot_cfg is None:
             robot_cfg = getattr(self.env, 'init_task_config', {}).get('robot_cfg', 'G2_omnipicker')
-        # Determine robot base prim path (G1 uses /G1, G2 uses /genie)
-        if "G1" in robot_cfg:
+        # Determine robot base prim path (Taks_T1 uses /Taks_T1, G1 uses /G1, G2 uses /genie)
+        if "Taks_T1" in robot_cfg:
+            robot_base = "/Taks_T1"
+        elif "G1" in robot_cfg:
             robot_base = "/G1"
         else:
             robot_base = "/genie"

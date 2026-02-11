@@ -84,8 +84,10 @@ class ChassisAtTarget(EvaluateAction):
         if robot_cfg is None:
             robot_cfg = getattr(self.env, 'init_task_config', {}).get('robot_cfg', 'G2_omnipicker')
 
-        # Determine chassis prim path (G1 uses /G1, G2 uses /genie)
-        if "G1" in robot_cfg:
+        # Determine chassis prim path (G1 uses /G1, Taks_T1 uses /Taks_T1, G2 uses /genie)
+        if "Taks_T1" in robot_cfg:
+            chassis_path = "/Taks_T1"
+        elif "G1" in robot_cfg:
             chassis_path = "/G1"
         else:
             chassis_path = "/genie"

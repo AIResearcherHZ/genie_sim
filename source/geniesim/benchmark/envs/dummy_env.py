@@ -76,7 +76,28 @@ class DummyEnv(BaseEnv):
     def reset(self):
         init_gripper = [1 - v for v in self.init_gripper]
         self.robot_joint_indices = self.api_core.get_robot_joint_indices()
-        if self.robot_cfg == "G1_omnipicker":
+        if self.robot_cfg == "Taks_T1_omnipicker":
+            self.api_core.set_joint_positions(
+                self.init_arm,
+                joint_indices=[self.robot_joint_indices[v] for v in TAKS_T1_DUAL_ARM_JOINT_NAMES],
+                is_trajectory=False,
+            )
+            self.api_core.set_joint_positions(
+                self.init_waist,
+                joint_indices=[self.robot_joint_indices[v] for v in TAKS_T1_WAIST_JOINT_NAMES],
+                is_trajectory=False,
+            )
+            self.api_core.set_joint_positions(
+                self.init_head,
+                joint_indices=[self.robot_joint_indices[v] for v in TAKS_T1_HEAD_JOINT_NAMES],
+                is_trajectory=False,
+            )
+            self.api_core.set_joint_positions(
+                init_gripper,
+                joint_indices=[self.robot_joint_indices[v] for v in OMNIPICKER_AJ_NAMES],
+                is_trajectory=False,
+            )
+        elif self.robot_cfg == "G1_omnipicker":
             self.api_core.set_joint_positions(
                 self.init_arm,
                 joint_indices=[self.robot_joint_indices[v] for v in G1_DUAL_ARM_JOINT_NAMES],

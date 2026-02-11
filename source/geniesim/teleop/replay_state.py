@@ -38,7 +38,11 @@ def dump_robotcfg(robot_cfg):
         )
         with open(cfg_path, "r") as f:
             cfg_content = json.load(f)
-        if "G1" in robot_cfg:
+        if "Taks_T1" in robot_cfg:
+            cfg_content["camera"]["/Taks_T1/gripper_l_base_link/Left_Camera"] = [320, 240]
+            cfg_content["camera"]["/Taks_T1/gripper_r_base_link/Right_Camera"] = [320, 240]
+            cfg_content["camera"]["/Taks_T1/neck_pitch_link/Head_Camera"] = [640, 480]
+        elif "G1" in robot_cfg:
             cfg_content["camera"]["/G1/gripper_l_base_link/Left_Camera"] = [320, 240]
             cfg_content["camera"]["/G1/gripper_r_base_link/Right_Camera"] = [320, 240]
             cfg_content["camera"]["/G1/head_link2/Head_Camera"] = [640, 480]

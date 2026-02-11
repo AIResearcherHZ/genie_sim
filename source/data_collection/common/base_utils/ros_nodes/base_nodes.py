@@ -23,6 +23,7 @@ logger.info(f"UTIL_DIR: {UTIL_DIR}")
 from common.base_utils.name_utils import (
     G1_JOINT_NAMES,
     G2_JOINT_NAMES,
+    TAKS_T1_JOINT_NAMES,
     OMNIPICKER_AJ_NAMES,
 )
 
@@ -77,14 +78,18 @@ class SimNode(Node):
         self.loop_rate = self.create_rate(30.0)
 
     def config_robot(self):
-        if "G1" in self.robot_name:
+        if "Taks_T1" in self.robot_name:
+            self.robot_id = "Taks_T1"
+        elif "G1" in self.robot_name:
             self.robot_id = "G1"
         elif "G2" in self.robot_name:
             self.robot_id = "G2"
         else:
             raise Exception(f"Invalid robot name {self.robot_name}")
 
-        if self.robot_id == "G1":
+        if self.robot_id == "Taks_T1":
+            self.joint_names = TAKS_T1_JOINT_NAMES
+        elif self.robot_id == "G1":
             self.joint_names = G1_JOINT_NAMES
         elif self.robot_id == "G2":
             self.joint_names = G2_JOINT_NAMES

@@ -23,6 +23,27 @@ G1_DEFAULT_STATES = {
     "init_hand": [0.0, 0.0],
 }
 
+TAKS_T1_DEFAULT_STATES = {
+    "body_state": [0.0, 0.0, 0.0],
+    "init_arm": [
+        -1.0751,
+        0.6109,
+        0.2793,
+        -1.2846,
+        0.7295,
+        1.4957,
+        -0.1868,
+        1.0734,
+        -0.6109,
+        -0.2793,
+        1.2846,
+        -0.7313,
+        -1.4957,
+        0.1868,
+    ],
+    "init_hand": [0.0, 0.0],
+}
+
 G2_DEFAULT_STATES = {
     "body_state": [0.0, 0.0, 0.10025, 1.2172, -0.83423],
     "head_state": [0.0, 0.0, 0.11464],
@@ -115,98 +136,122 @@ G2_STATES_3 = {
 TASK_INFO_DICT = {
     "pick_billards_color": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_block_color": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_block_shape": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_block_size": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_block_number": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_cup_size": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_fruit_size": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_object_type": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_pen_color": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_specific_object": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_accessory": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_object_position": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_stationery": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_follow_logic_and": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_follow_logic_not": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "pick_follow_logic_or": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "place_block_into_box": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "place_object_into_box_position": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "place_object_into_box_color": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "place_object_into_box_size": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "put_pen_into_penholder": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "sort_accessory": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "straighten_object": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "sort_fruit": {
         "G1_omnipicker": G1_DEFAULT_STATES,
+        "Taks_T1_omnipicker": TAKS_T1_DEFAULT_STATES,
         "G2_omnipicker": G2_DEFAULT_STATES,
     },
     "place_book": {"G2_omnipicker": G2_STATES_1},

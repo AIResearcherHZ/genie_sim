@@ -56,10 +56,13 @@ class StableGrasp(EvaluateAction):
             # Fallback: try to get from init_task_config
             robot_cfg = getattr(self.env, 'init_task_config', {}).get('robot_cfg', 'G2_omnipicker')
 
-        # Determine robot base prim path (G1 uses /G1, G2 uses /genie)
+        # Determine robot base prim path
+        # See: Taks_T1_omnipicker.json -> base_prim_path: "/Taks_T1"
         # See: G1_omnipicker.json -> base_prim_path: "/G1"
         # See: G2_omnipicker.json -> base_prim_path: "/genie"
-        if "G1" in robot_cfg:
+        if "Taks_T1" in robot_cfg:
+            robot_base = "/Taks_T1"
+        elif "G1" in robot_cfg:
             robot_base = "/G1"
         else:
             robot_base = "/genie"

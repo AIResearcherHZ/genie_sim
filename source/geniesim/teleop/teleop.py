@@ -91,7 +91,9 @@ class TeleOp(object):
         self.operator = args.operator
         self.robot_cfg = args.robot_cfg
         self.robot_generation = "G1"
-        if "G2" in self.robot_cfg:
+        if "Taks_T1" in self.robot_cfg:
+            self.robot_generation = "Taks_T1"
+        elif "G2" in self.robot_cfg:
             self.robot_generation = "G2"
         self.robot_eef = "120s"
         if "omnipicker" in self.robot_cfg:
@@ -222,17 +224,28 @@ class TeleOp(object):
 
     def decode_arm(self, joint_pos, joint_name, precision=3):
         l_arm, r_arm, body, gripper, ori_pos, base_pos = {}, {}, {}, {}, {}, {}
+        chassis = TAKS_T1_CHASSIS if self.robot_generation == "Taks_T1" else G1_CHASSIS
         for idx, name in enumerate(joint_name):
             val = round(joint_pos[idx], precision)
-            if name.startswith("idx2"):
-                l_arm[name] = val
-            elif name.startswith("idx6"):
-                r_arm[name] = val
-            elif "body" in name or "head" in name:
-                body[name] = val
-            elif name in OMNIPICKER_AJ_NAMES:
-                gripper[name] = val
-            if name in G1_CHASSIS:
+            if self.robot_generation == "Taks_T1":
+                if name.startswith("left_") and "shoulder" in name or "elbow" in name or "wrist" in name:
+                    l_arm[name] = val
+                elif name.startswith("right_") and ("shoulder" in name or "elbow" in name or "wrist" in name):
+                    r_arm[name] = val
+                elif "waist" in name or "neck" in name:
+                    body[name] = val
+                elif name in OMNIPICKER_AJ_NAMES:
+                    gripper[name] = val
+            else:
+                if name.startswith("idx2"):
+                    l_arm[name] = val
+                elif name.startswith("idx6"):
+                    r_arm[name] = val
+                elif "body" in name or "head" in name:
+                    body[name] = val
+                elif name in OMNIPICKER_AJ_NAMES:
+                    gripper[name] = val
+            if name in chassis:
                 base_pos[name] = val
                 continue
             ori_pos[name] = val
@@ -307,7 +320,30 @@ class TeleOp(object):
             waist_lift_sig = self.pico_command["r"]["axisY"]
             waist_pitch_sig = self.pico_command["r"]["axisX"]
             enabled = False
-            if self.robot_generation == "G1":
+            if self.robot_generation == "Taks_T1":
+                waist_roll = self.joint_info["body"].get("waist_roll_joint", 0.0)
+                waist_pitch = self.joint_info["body"].get("waist_pitch_joint", 0.0)
+                if waist_lift_sig > THRESH:
+                    waist_roll += delta_angle
+                    enabled = True
+                if waist_lift_sig < -THRESH:
+                    waist_roll -= delta_angle
+                    enabled = True
+                if waist_pitch_sig > THRESH:
+                    waist_pitch += delta_angle
+                    enabled = True
+                if waist_pitch_sig < -THRESH:
+                    waist_pitch -= delta_angle
+                    enabled = True
+                if enabled:
+                    print("waist cmd", waist_roll)
+                    self.joint_cmd.update(
+                        {
+                            "waist_roll_joint": waist_roll,
+                            "waist_pitch_joint": waist_pitch,
+                        }
+                    )
+            elif self.robot_generation == "G1":
                 waist_lift = self.joint_info["body"]["idx01_body_joint1"]
                 waist_pitch = self.joint_info["body"]["idx02_body_joint2"]
                 if waist_lift_sig > THRESH:
@@ -422,9 +458,10 @@ class TeleOp(object):
                 elif target_rpy[2] <= -np.pi:
                     target_rpy[2] = -np.pi + 0.01
 
-                self.sim_ros_node.set_joint_state(name=[G1_CHASSIS[2]], position=[float(target_rpy[2])])
+                chassis = TAKS_T1_CHASSIS if self.robot_generation == "Taks_T1" else G1_CHASSIS
+                self.sim_ros_node.set_joint_state(name=[chassis[2]], position=[float(target_rpy[2])])
                 time.sleep(0.1)
-                self.sim_ros_node.set_joint_state(name=G1_CHASSIS[0:2], position=[float(v) for v in target_pos[0:2]])
+                self.sim_ros_node.set_joint_state(name=chassis[0:2], position=[float(v) for v in target_pos[0:2]])
 
         else:
             self.reset_robot_pose()
@@ -623,9 +660,10 @@ class TeleOp(object):
                 )
 
                 target_pos, target_rpy = self.env.robot.update_odometry(self.robot_command, self.robot_rotation_command)
-                self.sim_ros_node.set_joint_state(name=[G1_CHASSIS[2]], position=[float(target_rpy[2])])
+                chassis = TAKS_T1_CHASSIS if self.robot_generation == "Taks_T1" else G1_CHASSIS
+                self.sim_ros_node.set_joint_state(name=[chassis[2]], position=[float(target_rpy[2])])
                 time.sleep(0.1)
-                self.sim_ros_node.set_joint_state(name=G1_CHASSIS[0:2], position=[float(v) for v in target_pos[0:2]])
+                self.sim_ros_node.set_joint_state(name=chassis[0:2], position=[float(v) for v in target_pos[0:2]])
                 # self.init_pos[0:2] += self.waist_command
                 # self.init_pos[2:4] += self.head_command
                 self.set_joint_state()

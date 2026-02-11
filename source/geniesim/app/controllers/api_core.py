@@ -727,7 +727,9 @@ class APICore:
         viewport, window = get_active_viewport_and_window()
         # Set camera based on robot type
         viewport.set_active_camera("/G1/head_link2/Head_Camera")
-        if "G2" in self.robot_name:
+        if "Taks_T1" in self.robot_name:
+            viewport.set_active_camera("/Taks_T1/neck_pitch_link/Head_Camera")
+        elif "G2" in self.robot_name:
             viewport.set_active_camera("/genie/head_link3/head_front_Camera")
         time.sleep(1)
         self._play()
@@ -1297,7 +1299,7 @@ class APICore:
         camera_intrinsic_info = self.get_camera_intrinsic_info()
         for prim in self.camera_prim_list:
             prim_name = prim.split("/")[-1]
-            if "G1" in self.robot_name:
+            if "G1" in self.robot_name or "Taks_T1" in self.robot_name:
                 if "Fisheye_Camera" in prim_name:
                     prim_name = "head_right_fisheye"
                 elif "Fisheye_Camera" in prim_name:
@@ -1358,7 +1360,15 @@ class APICore:
             self.record_process.append(process)
 
     def _init_gripper_contact_end(self):
-        if "omnipicker" in self.robot_cfg.robot_usd:
+        if "Taks_T1" in self.robot_cfg.robot_usd:
+            if "omnipicker" in self.robot_cfg.robot_usd:
+                self.gripper_contact_ends = [
+                    "/Taks_T1/gripper_r_inner_link4",
+                    "/Taks_T1/gripper_r_outer_link4",
+                ]
+            else:
+                raise ("Undefined gripper for Taks_T1")
+        elif "omnipicker" in self.robot_cfg.robot_usd:
             self.gripper_contact_ends = [
                 "/G1/gripper_r_inner_link4",
                 "/G1/gripper_r_outer_link4",

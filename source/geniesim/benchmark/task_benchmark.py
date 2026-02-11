@@ -319,7 +319,7 @@ class TaskBenchmark(object):
                 self.api_core.change_material(mesh_path, material_path)
 
     def set_record_topics(self):
-        if "G1" in self.task_config["robot"]["robot_cfg"]:
+        if "Taks_T1" in self.task_config["robot"]["robot_cfg"] or "G1" in self.task_config["robot"]["robot_cfg"]:
             self.record_topic_list = [
                 "/tf",
                 "/joint_states",

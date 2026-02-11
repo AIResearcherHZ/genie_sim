@@ -1,51 +1,250 @@
 ==============================
-  GenieSim 使用说明
+  GenieSim 使用说明（含 Taks_T1 集成）
 ==============================
 
 一、环境准备
 ------------------------------
 1. 启动 Docker 容器（GUI 模式）:
-   ./scripts/start_gui.sh
+   SIM_ASSETS=~/assets ./scripts/start_gui.sh
+   ./scripts/into.sh
 
 2. 启动 Docker 容器（无头模式）:
-   ./scripts/start_headless.sh
+   SIM_ASSETS=~/assets ./scripts/start_headless.sh
 
 3. 进入容器:
    ./scripts/into.sh
-   # 等价于: docker exec -it genie_sim_benchmark bash
 
-二、运行 Demo（容器内执行）
+二、启动仿真服务（容器内执行）
 ------------------------------
 容器内已配置以下别名（见 scripts/entrypoint.sh）:
   - omni_python  = /isaac-sim/python.sh
   - geniesim     = omni_python source/geniesim/app/app.py
 
-因此可以用简写方式运行:
+  # 启动 server（不带 cuRobo）
+  omni_python server/source/genie.sim.lab/raise_standalone_sim.py
 
-  # 颜色选择 demo
+  # 启动 server（带 cuRobo IK/运动规划）
+  omni_python server/source/genie.sim.lab/raise_standalone_sim.py --enable_curobo True
+
+  # 启动 server（带 ROS2 话题发布）
+  omni_python server/source/genie.sim.lab/raise_standalone_sim.py --rospub
+
+  # 启动 server（录制视频回放模式）
+  omni_python server/source/genie.sim.lab/raise_standalone_sim.py --rospub --record_img --disable_physics
+
+三、运行 Demo / Benchmark（新终端容器内执行）
+------------------------------
+  ./scripts/into.sh
+
+  # 使用 YAML 配置运行（快捷方式）
   geniesim --config source/geniesim/config/select_color.yaml
-
-  # 尺寸识别 demo
   geniesim --config source/geniesim/config/size_recognize.yaml
-
-  # 抓取目标 demo
   geniesim --config source/geniesim/config/grasp_targets.yaml
-
-  # 整理物品 demo
   geniesim --config source/geniesim/config/organize_items.yaml
-
-  # 遥操作 demo
   geniesim --config source/geniesim/config/teleop.yaml
 
-等价的完整命令（如果别名不可用）:
+  # 等价完整命令
   omni_python source/geniesim/app/app.py --config source/geniesim/config/<配置文件>.yaml
 
-三、批量运行任务
-------------------------------
-  ./scripts/run_tasks.sh
-  # 会自动遍历 benchmark/config/llm_task 下的所有子任务并依次执行
+  # 运行 benchmark 任务
+  omni_python benchmark/task_benchmark.py --task_name=genie_task_supermarket
 
-四、可用配置文件
+  # 运行 benchmark（指定自定义 policy）
+  python3 benchmark/task_benchmark.py --task_name {task_name} --policy_class {policy_name} --env_class OmniEnv
+
+四、支持的机器人型号
+------------------------------
+  - G1_omnipicker    : G1 本体 + omnipicker 夹爪
+  - G1_120s          : G1 本体 + 120s 夹爪
+  - Taks_T1_omnipicker : Taks_T1 本体 + omnipicker 夹爪  [新增]
+  - G2_omnipicker    : G2 本体 + omnipicker 夹爪
+
+五、Taks_T1 机器人环境说明
+------------------------------
+Taks_T1 机器人已完整集成到项目中，与 G1 环境一一对应:
+
+5.1 关节结构
+  左臂 7DOF: left_shoulder_pitch/roll/yaw, left_elbow, left_wrist_roll/yaw/pitch
+  右臂 7DOF: right_shoulder_pitch/roll/yaw, right_elbow, right_wrist_roll/yaw/pitch
+  腰部 3DOF: waist_yaw, waist_roll, waist_pitch
+  头部 3DOF: neck_yaw, neck_roll, neck_pitch
+  夹爪: omnipicker (与 G1 共用同一夹爪)
+
+5.2 配置文件路径
+  机器人 JSON 配置:  source/geniesim/app/robot_cfg/Taks_T1_omnipicker.json
+  URDF 文件:        source/geniesim/app/robot_cfg/Taks_T1_omnipicker/Taks_T1_omnipicker.urdf
+  Lula/cuRobo YML:  source/geniesim/app/robot_cfg/Taks_T1_omnipicker/Taks_T1_omnipicker.yml
+  cuRobo 配置:      source/geniesim/app/curobo/configs/robot/Taks_T1_omnipicker.yml
+  评估任务配置:      source/geniesim/benchmark/config/eval_tasks/table_task_taks_t1.json
+  Taks_T1 资产:     assets/Taks_T1/ (URDF, meshes, MuJoCo XML)
+  USD 资产目录:     source/geniesim/assets/robot/Taks_T1_omnipicker/
+
+5.3 Prim 路径映射
+  G1:      /G1/head_link2/Head_Camera, /G1/gripper_l_base_link/Left_Camera, ...
+  Taks_T1: /Taks_T1/neck_pitch_link/Head_Camera, /Taks_T1/gripper_l_base_link/Left_Camera, ...
+
+5.4 所有包含 Taks_T1 的 benchmark 任务（与 G1 一一对应）
+  pick_billards_color, pick_block_color, pick_block_shape, pick_block_size,
+  pick_block_number, pick_object_type, pick_pen_color, pick_specific_object,
+  pick_follow_logic_and, pick_follow_logic_not, pick_follow_logic_or,
+  place_block_into_box, place_object_into_box_position, place_object_into_box_color,
+  place_object_into_box_size, put_pen_into_penholder, sort_accessory,
+  straighten_object, push_drawer_color, pull_drawer_number, open_laptop_lid,
+  press_button_color, place_object_on_convoy, sort_fruit
+
+六、遥操作（Teleoperation）
+------------------------------
+6.1 PICO 遥操作
+  # 启动 server
+  omni_python server/source/genie.sim.lab/raise_standalone_sim.py
+
+  # 启动 PICO 控制（Taks_T1 需指定 robot_cfg）
+  omni_python teleop/teleop.py --task_name genie_task_xxx --mode pico --host_ip x.x.x.x --robot_cfg Taks_T1_omnipicker
+
+  PICO 按键功能:
+  左摇杆旋转: 移动底盘    左摇杆按下: 重置底盘位姿
+  左扳机: 控制左夹爪      右扳机: 控制右夹爪
+  左手柄trigger: 启用左臂追踪  右手柄trigger: 启用右臂追踪
+  右手键一: 重置右臂      左手键一: 重置左臂
+  右手键二: 重置腰部和头部
+  右摇杆: 控制腰部(默认)/头部(按下切换)
+
+6.2 键盘遥操作
+  omni_python teleop/teleop.py --task_name genie_task_xxx --mode keyboard --robot_cfg Taks_T1_omnipicker
+
+  按键      功能          按键      功能
+  w        末端前移       i        roll +
+  s        末端后移       k        roll -
+  a        末端左移       j        pitch +
+  d        末端右移       l        pitch -
+  q        末端上移       u        yaw +
+  e        末端下移       o        yaw -
+  up       底盘前进       shift+up    头部 pitch +
+  down     底盘后退       shift+down  头部 pitch -
+  left     底盘左转       shift+left  头部 yaw +
+  right    底盘右转       shift+right 头部 yaw -
+  ctrl+up  腰部上升       ctrl+tab   切换左/右臂
+  ctrl+down 腰部下降      r         重置
+  c        关闭夹爪       ctrl+c    打开夹爪
+
+七、录制与回放
+------------------------------
+  # 录制（启动 server + 录制模式）
+  omni_python server/source/genie.sim.lab/raise_standalone_sim.py --rospub
+  omni_python teleop/teleop.py --task_name genie_task_xxx --mode keyboard --record --robot_cfg Taks_T1_omnipicker
+
+  # 录制数据保存在: ./output/recording_data/{genie_task_xxx}/state.json
+
+  # 回放轨迹并录制视频
+  omni_python server/source/genie.sim.lab/raise_standalone_sim.py --rospub --record_img --disable_physics
+  omni_python teleop/replay_state.py --task_file teleop/tasks/genie_task_xxx.json \
+    --state_file output/recording_data/genie_task_xxx/state.json --record
+
+  # 回放视频保存在: ./output/recording_data/{genie_task_xxx}/{idx}/
+
+八、API 参考（Client 端常用接口）
+------------------------------
+8.1 初始化
+  client.InitRobot(robot_cfg, scene_usd, init_position, init_rotation)
+    - robot_cfg: 配置文件名 (如 "Taks_T1_omnipicker.json")
+    - scene_usd: 场景 USD 路径
+    - init_position: [x, y, z]
+    - init_rotation: [w, x, y, z] (四元数)
+
+8.2 运动控制
+  client.moveto(target_position, target_quaternion, is_backend, ee_interpolation, distance_frame)
+    - target_position: [x, y, z] 末端目标位置
+    - target_quaternion: [w, x, y, z] 末端目标姿态
+    - is_backend: True=直线运动, False=带避障(cuRobo)运动
+    - ee_interpolation: True=Ruckig插值, False=目标点插值
+    - distance_frame: 插值密度
+
+  client.set_joint_positions(target_joint_position, joint_indices, is_trajectory)
+    - target_joint_position: [N] rad/s 关节角度
+    - joint_indices: [N] 关节索引
+    - is_trajectory: True=关节动作应用, False=直接设置关节状态
+
+  client.set_gripper_state(gripper_command, is_right, opened_width)
+    - gripper_command: "open" / "close"
+
+  client.SetTrajectoryList(trajectory_list)
+    - trajectory_list: [[position(xyz), rotation(wxyz)], ...]
+
+8.3 逆运动学 (IK)
+  client.GetIKStatus(target_poses, is_right, ObsAvoid)
+    - target_poses: [{"position": [x,y,z], "rotation": [w,x,y,z]}]
+    - is_right: True=右臂, False=左臂
+    - ObsAvoid: True=带碰撞避障计算
+    返回:
+      - status: [bool] IK 是否成功
+      - Jacobian: [double] IK 关节状态的雅可比评分
+      - joint_positions: [list] IK 关节角度
+      - joint_names: [list] IK 关节名称
+
+  注意: IK 功能需要启动 server 时启用 cuRobo:
+    omni_python server/source/genie.sim.lab/raise_standalone_sim.py --enable_curobo True
+  cuRobo 配置文件路径:
+    G1:      source/geniesim/app/curobo/configs/robot/G1_omnipicker.yml
+    Taks_T1: source/geniesim/app/curobo/configs/robot/Taks_T1_omnipicker.yml
+
+8.4 末端姿态获取
+  client.GetEEPose(is_right)
+    - is_right: True=右臂, False=左臂
+    返回: state.ee_pose.position, state.ee_pose.rpy
+
+8.5 关节状态获取
+  client.get_joint_positions()
+    返回: result.states.name, result.states.position
+
+8.6 物体操作
+  client.add_object(usd_path, prim_path, label_name, target_position, target_quaternion, target_scale, mass, ...)
+  client.SetObjectPose(object_info, object_joint_info)
+  client.get_object_pose(prim_path)
+    返回: object_pose.position, object_pose.rpy
+
+8.7 碰撞避障 (cuRobo)
+  client.AttachObj(prim_paths)    # 附着物体到末端
+  client.DetachObj()               # 分离所有附着物体
+
+8.8 相机与观测
+  client.AddCamera(camera_prim, camera_position, camera_rotation, Width, Height, ...)
+  client.capture_frame(camera_prim)
+    返回: response.color_image.data, response.depth_image.data
+  client.capture_semantic_frame(camera_prim_path)
+    返回: response.semantic_mask.data
+
+  client.get_observation(data_keys)
+    - data_keys 示例:
+      {
+        "camera": {"camera_prim_list": ["/Taks_T1/neck_pitch_link/Head_Camera"], "render_depth": True, "render_semantic": True},
+        "pose": ["/World/object1"],
+        "joint_position": True,
+        "gripper": True
+      }
+    返回: {"camera": ..., "joint": ..., "pose": ..., "gripper": ...}
+
+8.9 录制控制
+  client.start_recording(data_keys, fps, task_name)
+  client.stop_recording()
+  client.reset()
+  client.Exit()
+
+九、Benchmark 评估
+------------------------------
+9.1 评估指标（BDDL 格式）
+  检查器      描述                    关键词
+  OnTop      物体是否在目标上方       ontop
+  Inside     物体是否在容器内         inside
+  OnShelf    物体是否在指定区域       onshelf
+  Open       物体是否已打开           open
+  Pass2People 物体是否面向场景中的人  pass2people
+
+9.2 评估结果格式
+  输出目录: output/
+  结果包含: task_type, model_path, task_uid, task_name, stage, result(code/step/msg), start_time, end_time
+  错误码: SUCCESS=0, ABNORMAL_INTERRUPTION=1, OUT_OF_MAX_STEP=2, UNKNOWN_ERROR=500
+
+十、可用配置文件
 ------------------------------
   source/geniesim/config/
   ├── config.yaml          # 默认全局配置
@@ -56,19 +255,76 @@
   ├── organize_items.yaml  # 整理物品任务
   └── teleop.yaml          # 遥操作任务
 
-五、Assets 说明
+十一、Assets 说明
 ------------------------------
   source/geniesim/assets -> /root/genie_sim/source/geniesim/assets (符号链接)
   包含: robot/, objects/, scenes/, background/, interaction/ 等资源
 
-六、常见问题
+  Taks_T1 资产:
+    assets/Taks_T1/Taks_T1.urdf        # Taks_T1 机器人 URDF
+    assets/Taks_T1/meshes/             # STL 网格文件
+    assets/Taks_T1/scene_Taks_T1.xml   # MuJoCo 场景文件
+
+  USD 机器人资产（需要从 URDF 转换生成）:
+    source/geniesim/assets/robot/Taks_T1_omnipicker/robot.usda
+    # 使用 Isaac Sim UrdfConverter 从 Taks_T1_omnipicker.urdf 生成
+
+十二、批量运行任务
+------------------------------
+  ./scripts/run_tasks.sh
+  # 会自动遍历 benchmark/config/llm_task 下的所有子任务并依次执行
+
+十三、常见问题
 ------------------------------
 Q: "Restitution attribute is unsupported for articulation joints and will be ignored"
-A: 已修复。原因是 G1_omnipicker/robot.usda 中 gripper joints 上设置了
+A: 已修复。原因是 robot.usda 中 gripper joints 上设置了
    physxLimit:angular:restitution 和 physxLimit:cone:restitution 属性，
    PhysX 不支持 articulation joints 上的 restitution，已移除这些属性。
 
 Q: "The relationship target refers to a path outside the scope of the reference"
-A: robot.usda 中部分 material:binding 引用了 </G1/GripperMaterial> 等路径，
+A: robot.usda 中部分 material:binding 引用了外部路径，
    但这些路径在 reference scope 之外。这是 USD 层级引用的已知限制，
    需要将 Material 定义移入 reference scope 内或调整引用路径。
+
+Q: 如何为 Taks_T1 生成 robot.usda?
+A: 需要在 Isaac Sim 中使用 UrdfConverter 工具将
+   source/geniesim/app/robot_cfg/Taks_T1_omnipicker/Taks_T1_omnipicker.urdf
+   转换为 USD 格式，输出到 source/geniesim/assets/robot/Taks_T1_omnipicker/robot.usda
+   转换时需要确保 omnipicker 夹爪的 DAE 网格文件路径可正确解析
+   (package://genie_robot_description/meshes/omnipicker/)
+
+Q: Taks_T1 IK 不工作?
+A: 确保启动 server 时加了 --enable_curobo True 参数，
+   并且 cuRobo 配置文件 curobo/configs/robot/Taks_T1_omnipicker.yml 存在且路径正确。
+   cuRobo 使用 Taks_T1_omnipicker.urdf 中的运动学链计算 IK。
+
+十四、已修改文件清单（Taks_T1 集成）
+------------------------------
+新增文件:
+  - source/geniesim/app/robot_cfg/Taks_T1_omnipicker.json
+  - source/geniesim/app/robot_cfg/Taks_T1_omnipicker/Taks_T1_omnipicker.urdf
+  - source/geniesim/app/robot_cfg/Taks_T1_omnipicker/Taks_T1_omnipicker.yml
+  - source/geniesim/app/curobo/configs/robot/Taks_T1_omnipicker.yml
+  - source/geniesim/benchmark/config/eval_tasks/table_task_taks_t1.json
+  - source/geniesim/assets/robot/Taks_T1_omnipicker/config.yaml
+
+修改文件:
+  - source/geniesim/utils/name_utils.py                          (添加 TAKS_T1 关节名定义)
+  - source/data_collection/common/base_utils/name_utils.py       (添加 TAKS_T1 关节名定义)
+  - source/geniesim/benchmark/config/task_config_mapping.py      (所有G1任务添加 Taks_T1)
+  - source/geniesim/benchmark/config/robot_init_states.py        (添加 TAKS_T1_DEFAULT_STATES)
+  - source/geniesim/benchmark/config/robot_init_pose.json        (添加 Taks_T1_omnipicker 初始姿态)
+  - source/geniesim/app/utils/robot.py                           (识别 Taks_T1 robot_generation)
+  - source/geniesim/app/controllers/api_core.py                  (viewport/camera/gripper 支持)
+  - source/geniesim/utils/ros_nodes/base_nodes.py                (SimNode 支持 Taks_T1)
+  - source/data_collection/common/base_utils/ros_nodes/base_nodes.py (SimNode 支持 Taks_T1)
+  - source/geniesim/benchmark/envs/dummy_env.py                  (reset 支持 Taks_T1)
+  - source/geniesim/benchmark/envs/pi_env.py                     (obs/reset/step 支持 Taks_T1)
+  - source/geniesim/benchmark/task_benchmark.py                  (录制话题支持 Taks_T1)
+  - source/geniesim/teleop/teleop.py                             (遥操作全面支持 Taks_T1)
+  - source/geniesim/teleop/replay_state.py                       (回放相机路径支持 Taks_T1)
+  - source/geniesim/plugins/ader/action/custom/chassis_at_target.py  (底盘路径支持)
+  - source/geniesim/plugins/ader/action/custom/follow.py             (夹爪路径支持)
+  - source/geniesim/plugins/ader/action/custom/pickup_on_gripper.py  (夹爪路径支持)
+  - source/geniesim/plugins/ader/action/custom/stable_grasp.py       (夹爪路径支持)
+  - source/geniesim/plugins/ader/action/custom/gripper_passing.py    (夹爪路径支持)

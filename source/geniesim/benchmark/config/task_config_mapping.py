@@ -3,91 +3,91 @@
 # License: Mozilla Public License Version 2.0
 TASK_MAPPING = {
     "pick_billards_color": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "color"},
     },
     "pick_block_color": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "color"},
     },
     "pick_block_shape": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "shape"},
     },
     "pick_block_size": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "size"},
     },
     "pick_block_number": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "number"},
     },
     "pick_object_type": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "category"},
     },
     "pick_pen_color": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "color"},
     },
     "pick_specific_object": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "semantic"},
     },
     "pick_follow_logic_and": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "logic"},
     },
     "pick_follow_logic_not": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "logic"},
     },
     "pick_follow_logic_or": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pick", "cognition": "logic"},
     },
     "place_block_into_box": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "planar_pick_place_", "cognition": "semantic"},
     },
     "place_object_into_box_position": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "planar_pick_place_", "cognition": "position"},
     },
     "place_object_into_box_color": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "planar_pick_place_", "cognition": "color"},
     },
     "place_object_into_box_size": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "planar_pick_place_", "cognition": "size"},
     },
     "put_pen_into_penholder": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "insert", "cognition": "semantic"},
     },
     "sort_accessory": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "planar_pick_place_", "cognition": "semantic"},
     },
     "straighten_object": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "straighten", "cognition": "semantic"},
     },
     "push_drawer_color": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "push", "cognition": "color"},
     },
     "pull_drawer_number": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "pull", "cognition": "number"},
     },
     "open_laptop_lid": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "open", "cognition": "semantic"},
     },
     "press_button_color": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "press", "cognition": "color"},
     },
     "turn_faucet": {
@@ -99,7 +99,7 @@ TASK_MAPPING = {
         "eval_dims": {"manip": "bimanual_hold", "cognition": "semantic"},
     },
     "place_object_on_convoy": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "planar_pick_place_", "cognition": "semantic"},
     },
     "clean_the_desktop": {
@@ -107,7 +107,7 @@ TASK_MAPPING = {
         "eval_dims": "long-horizon",
     },
     "sort_fruit": {
-        "background": {"G1": "table_task_g1", "G2": "table_task_g2"},
+        "background": {"G1": "table_task_g1", "Taks_T1": "table_task_taks_t1", "G2": "table_task_g2"},
         "eval_dims": {"manip": "planar_pick_place_", "cognition": "semantic"},
     },
     "place_book": {
