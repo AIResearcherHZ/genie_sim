@@ -4,9 +4,6 @@ build_/
 saved_task/*
 saved_task/
 
-assets/
-assets
-
 **/*/data/
 **/__pycache__
 *.pyc
