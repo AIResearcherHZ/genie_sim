@@ -1,0 +1,74 @@
+==============================
+  GenieSim 使用说明
+==============================
+
+一、环境准备
+------------------------------
+1. 启动 Docker 容器（GUI 模式）:
+   ./scripts/start_gui.sh
+
+2. 启动 Docker 容器（无头模式）:
+   ./scripts/start_headless.sh
+
+3. 进入容器:
+   ./scripts/into.sh
+   # 等价于: docker exec -it genie_sim_benchmark bash
+
+二、运行 Demo（容器内执行）
+------------------------------
+容器内已配置以下别名（见 scripts/entrypoint.sh）:
+  - omni_python  = /isaac-sim/python.sh
+  - geniesim     = omni_python source/geniesim/app/app.py
+
+因此可以用简写方式运行:
+
+  # 颜色选择 demo
+  geniesim --config source/geniesim/config/select_color.yaml
+
+  # 尺寸识别 demo
+  geniesim --config source/geniesim/config/size_recognize.yaml
+
+  # 抓取目标 demo
+  geniesim --config source/geniesim/config/grasp_targets.yaml
+
+  # 整理物品 demo
+  geniesim --config source/geniesim/config/organize_items.yaml
+
+  # 遥操作 demo
+  geniesim --config source/geniesim/config/teleop.yaml
+
+等价的完整命令（如果别名不可用）:
+  omni_python source/geniesim/app/app.py --config source/geniesim/config/<配置文件>.yaml
+
+三、批量运行任务
+------------------------------
+  ./scripts/run_tasks.sh
+  # 会自动遍历 benchmark/config/llm_task 下的所有子任务并依次执行
+
+四、可用配置文件
+------------------------------
+  source/geniesim/config/
+  ├── config.yaml          # 默认全局配置
+  ├── template.yaml        # 批量运行模板
+  ├── select_color.yaml    # 颜色选择任务
+  ├── size_recognize.yaml  # 尺寸识别任务
+  ├── grasp_targets.yaml   # 抓取目标任务
+  ├── organize_items.yaml  # 整理物品任务
+  └── teleop.yaml          # 遥操作任务
+
+五、Assets 说明
+------------------------------
+  source/geniesim/assets -> /root/genie_sim/source/geniesim/assets (符号链接)
+  包含: robot/, objects/, scenes/, background/, interaction/ 等资源
+
+六、常见问题
+------------------------------
+Q: "Restitution attribute is unsupported for articulation joints and will be ignored"
+A: 已修复。原因是 G1_omnipicker/robot.usda 中 gripper joints 上设置了
+   physxLimit:angular:restitution 和 physxLimit:cone:restitution 属性，
+   PhysX 不支持 articulation joints 上的 restitution，已移除这些属性。
+
+Q: "The relationship target refers to a path outside the scope of the reference"
+A: robot.usda 中部分 material:binding 引用了 </G1/GripperMaterial> 等路径，
+   但这些路径在 reference scope 之外。这是 USD 层级引用的已知限制，
+   需要将 Material 定义移入 reference scope 内或调整引用路径。

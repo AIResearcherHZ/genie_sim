@@ -12,7 +12,6 @@ assets
 *.pyc
 *.tmp
 *.tmp/
-*.whl
 output/
 record*/
 *.hdf5
@@ -21,8 +20,6 @@ record*/
 *.tar.gz
 *.zip
 *.7z
-3rdparty
-!3rdparty/**
 .vscode/*
 checkpoint
 checkpoints
