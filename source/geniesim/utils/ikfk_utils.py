@@ -42,16 +42,22 @@ def mat2xyzrpy(mat):
 
 
 class IKFKSolver:
-    def __init__(self, arm_init_joint_position, head_init_position, waist_init_position):
+    def __init__(self, arm_init_joint_position, head_init_position, waist_init_position, robot_cfg="G1_omnipicker"):
+        if "Taks_T1" in robot_cfg:
+            urdf_name = "Taks_T1_NO_GRIPPER.urdf"
+            config_name = "taks_t1_solver.yaml"
+        else:
+            urdf_name = "G1_NO_GRIPPER.urdf"
+            config_name = "g1_solver.yaml"
         self.left_solver = ik_solver.Solver(
             part=ik_solver.RobotPart.LEFT_ARM,
-            urdf_path=os.path.join(current_dir, "urdf_solver", "G1_NO_GRIPPER.urdf"),
-            config_path=os.path.join(current_dir, "urdf_solver", "g1_solver.yaml"),
+            urdf_path=os.path.join(current_dir, "urdf_solver", urdf_name),
+            config_path=os.path.join(current_dir, "urdf_solver", config_name),
         )
         self.right_solver = ik_solver.Solver(
             part=ik_solver.RobotPart.RIGHT_ARM,
-            urdf_path=os.path.join(current_dir, "urdf_solver", "G1_NO_GRIPPER.urdf"),
-            config_path=os.path.join(current_dir, "urdf_solver", "g1_solver.yaml"),
+            urdf_path=os.path.join(current_dir, "urdf_solver", urdf_name),
+            config_path=os.path.join(current_dir, "urdf_solver", config_name),
         )
         self.left_solver.set_debug_mode(False)
         self.right_solver.set_debug_mode(False)

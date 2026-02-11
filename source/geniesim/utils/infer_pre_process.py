@@ -13,7 +13,7 @@ class TaskInfo:
         self._hand_init_position = None
         self._gripper_init_position = self._task_config["init_hand"]
 
-        if "G1_omnipicker" == robot_cfg:
+        if robot_cfg in ("G1_omnipicker", "Taks_T1_omnipicker"):
             self._head_init_position = self._task_config["body_state"][:2]
             self._waist_init_position = self._task_config["body_state"][2:4]
         elif "G2_omnipicker" == robot_cfg:

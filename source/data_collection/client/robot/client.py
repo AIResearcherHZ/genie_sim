@@ -417,7 +417,9 @@ class RpcClient:
             joint_positions = np.array(joint_positions)
 
             pinocchio.forwardKinematics(model, data, joint_positions)
-            if "G1" in self.robot_urdf:
+            if "Taks_T1" in self.robot_urdf:
+                J = pinocchio.computeJointJacobian(model, data, joint_positions, 24)
+            elif "G1" in self.robot_urdf:
                 J = pinocchio.computeJointJacobian(model, data, joint_positions, 24)
             elif "G2" in self.robot_urdf:
                 J = pinocchio.computeJointJacobian(model, data, joint_positions, 45)

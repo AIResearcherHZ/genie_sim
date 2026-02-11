@@ -72,7 +72,7 @@ class IsaacSimRpcRobot(Robot):
         self.robot_init_arm_pose_noise = robot_init_arm_pose_noise
 
         # Read joint names from configuration file
-        robot_names_key = "G1" if "G1" in robot_cfg else "G2"
+        robot_names_key = "Taks_T1" if "Taks_T1" in robot_cfg else ("G1" if "G1" in robot_cfg else "G2")
         config = self._load_robot_config()
         arm_joint_names = config[robot_names_key]["arm_joint_names"]
 
@@ -105,7 +105,7 @@ class IsaacSimRpcRobot(Robot):
         return config
 
     def _get_robot_joint_names(self):
-        robot_names_key = "G1" if "G1" in self.robot_cfg else "G2"
+        robot_names_key = "Taks_T1" if "Taks_T1" in self.robot_cfg else ("G1" if "G1" in self.robot_cfg else "G2")
         config = self._load_robot_config()
         robot_joint_names = config[robot_names_key]["dof_order"]
         return robot_joint_names

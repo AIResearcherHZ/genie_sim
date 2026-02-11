@@ -9,13 +9,13 @@ from geniesim.app.controllers.api_core import APICore
 
 
 class DataCourier:
-    def __init__(self, api_core: APICore, enable_ros: bool, node_name, hz=30):
+    def __init__(self, api_core: APICore, enable_ros: bool, node_name, hz=30, robot_name="G1_omnipicker"):
 
         self.api_core = api_core
         self.enable_ros = enable_ros
         if enable_ros:
             if node_name in ["pi", ""]:
-                self.sim_ros_node = PIROSNode(robot_name="G1_omnipicker")
+                self.sim_ros_node = PIROSNode(robot_name=robot_name)
                 # Spin in main loop for unified processing
                 self.api_core.benchmark_ros_node = self.sim_ros_node
                 # Set sub_task_name if available (even if empty string, we'll publish it)
@@ -77,7 +77,7 @@ class DataCourier:
         return self.api_core.get_joint_state_dict()
 
     def get_observation_image(self):
-        if self.robot_cfg == "G1_omnipicker":
+        if self.robot_cfg in ("G1_omnipicker", "Taks_T1_omnipicker"):
             return self.api_core.get_observation_image(
                 {"head": "head_camera", "left_hand": "left_camera", "right_hand": "right_camera"}
             )

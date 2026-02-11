@@ -352,7 +352,7 @@ class Ros_Extrater:
         self.arm_base_prim_path = task_info["arm_base_prim_path"]
 
     def post_process_file_name(self, file_name, extra_name="", remove_name=False):
-        if "G1" in self.robot_name:
+        if "Taks_T1" in self.robot_name or "G1" in self.robot_name:
             if "Head" in file_name:
                 file_name = "head" + extra_name
             elif "Right" in file_name:

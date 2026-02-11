@@ -288,7 +288,9 @@ class CommandController:
             self.scene.CreateGravityMagnitudeAttr().Set(9.81)
             robot_rep = rep.get.prims(path_pattern=robot.robot_prim_path, prim_types=["Xform"])
             viewport, window = get_active_viewport_and_window()
-            if "G1" in robot.robot_name:
+            if "Taks_T1" in robot.robot_name:
+                viewport.set_active_camera("/Taks_T1/neck_pitch_link/Head_Camera")
+            elif "G1" in robot.robot_name:
                 viewport.set_active_camera("/G1/head_link2/Head_Camera")
             elif "G2" in robot.robot_name:
                 viewport.set_active_camera("/G2/head_link3/head_front_Camera")
@@ -303,7 +305,16 @@ class CommandController:
             # overwrite fixed joints in robot description
             joint_indices_mapping = {}
             joint_names = []
-            if "G1" in robot.robot_name:
+            if "Taks_T1" in robot.robot_name:
+                joint_names = [
+                    "waist_yaw_joint",
+                    "waist_roll_joint",
+                    "waist_pitch_joint",
+                    "neck_yaw_joint",
+                    "neck_roll_joint",
+                    "neck_pitch_joint",
+                ]
+            elif "G1" in robot.robot_name:
                 joint_names = [
                     "idx01_body_joint1",
                     "idx02_body_joint2",
@@ -718,7 +729,7 @@ class CommandController:
 
     def get_camera_prim_name(self, prim_path):
         prim_name = prim_path.split("/")[-1]
-        if "G1" in self.robot_name:
+        if "Taks_T1" in self.robot_name or "G1" in self.robot_name:
             if "head" in prim_name.lower():
                 prim_name = "head"
             elif "right" in prim_name.lower():

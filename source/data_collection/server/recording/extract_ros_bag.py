@@ -287,6 +287,8 @@ def reorder_joint_state(msg, robot_name):
         config = json.load(f)
     if "G2" in robot_name:
         target_joint_name = config["G2"]["joint_state_order"]
+    elif "Taks_T1" in robot_name:
+        target_joint_name = config["Taks_T1"]["joint_state_order"]
     else:
         target_joint_name = config["G1"]["joint_state_order"]
     now_joint_name = msg.name
@@ -348,7 +350,7 @@ class RosExtrater:
         self.arm_base_prim_path = task_info["arm_base_prim_path"]
 
     def post_process_camera_name(self, camera_name, extra_name="", remove_name=False):
-        if "G1" in self.robot_name or "G1" in self.robot_name:
+        if "Taks_T1" in self.robot_name or "G1" in self.robot_name:
             if "head" in camera_name.lower():
                 camera_name = "head" + extra_name
             elif "right" in camera_name.lower():

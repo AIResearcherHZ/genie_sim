@@ -1,5 +1,5 @@
 {
-    "G2":{
+    "G2": {
         "joint_state_order": [
             "idx21_arm_l_joint1",
             "idx22_arm_l_joint2",
@@ -127,7 +127,113 @@
             "idx89_gripper_r_outer_joint0"
         ]
     },
-    "G1":{
+    "Taks_T1": {
+        "joint_state_order": [
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "neck_yaw_joint",
+            "neck_roll_joint",
+            "neck_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_yaw_joint",
+            "left_wrist_pitch_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_yaw_joint",
+            "right_wrist_pitch_joint",
+            "idx41_gripper_l_outer_joint1",
+            "idx31_gripper_l_inner_joint1",
+            "idx81_gripper_r_outer_joint1",
+            "idx71_gripper_r_inner_joint1",
+            "idx42_gripper_l_outer_joint3",
+            "idx32_gripper_l_inner_joint3",
+            "idx82_gripper_r_outer_joint3",
+            "idx72_gripper_r_inner_joint3",
+            "idx43_gripper_l_outer_joint4",
+            "idx33_gripper_l_inner_joint4",
+            "idx83_gripper_r_outer_joint4",
+            "idx73_gripper_r_inner_joint4",
+            "idx53_gripper_l_outer_joint0",
+            "idx54_gripper_l_inner_joint0",
+            "idx93_gripper_r_outer_joint0",
+            "idx94_gripper_r_inner_joint0"
+        ],
+        "arm_joint_names": [
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_yaw_joint",
+            "left_wrist_pitch_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_yaw_joint",
+            "right_wrist_pitch_joint"
+        ],
+        "left_effector_joint_name": "idx41_gripper_l_outer_joint1",
+        "right_effector_joint_name": "idx81_gripper_r_outer_joint1",
+        "waist_joint_names": [
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint"
+        ],
+        "head_joint_names": [
+            "neck_yaw_joint",
+            "neck_roll_joint",
+            "neck_pitch_joint"
+        ],
+        "dof_order": [
+            "waist_yaw_joint",
+            "waist_roll_joint",
+            "waist_pitch_joint",
+            "neck_yaw_joint",
+            "neck_roll_joint",
+            "neck_pitch_joint",
+            "left_shoulder_pitch_joint",
+            "left_shoulder_roll_joint",
+            "left_shoulder_yaw_joint",
+            "left_elbow_joint",
+            "left_wrist_roll_joint",
+            "left_wrist_yaw_joint",
+            "left_wrist_pitch_joint",
+            "right_shoulder_pitch_joint",
+            "right_shoulder_roll_joint",
+            "right_shoulder_yaw_joint",
+            "right_elbow_joint",
+            "right_wrist_roll_joint",
+            "right_wrist_yaw_joint",
+            "right_wrist_pitch_joint",
+            "idx41_gripper_l_outer_joint1",
+            "idx31_gripper_l_inner_joint1",
+            "idx81_gripper_r_outer_joint1",
+            "idx71_gripper_r_inner_joint1",
+            "idx42_gripper_l_outer_joint3",
+            "idx32_gripper_l_inner_joint3",
+            "idx82_gripper_r_outer_joint3",
+            "idx72_gripper_r_inner_joint3",
+            "idx43_gripper_l_outer_joint4",
+            "idx33_gripper_l_inner_joint4",
+            "idx83_gripper_r_outer_joint4",
+            "idx73_gripper_r_inner_joint4",
+            "idx53_gripper_l_outer_joint0",
+            "idx54_gripper_l_inner_joint0",
+            "idx93_gripper_r_outer_joint0",
+            "idx94_gripper_r_inner_joint0"
+        ]
+    },
+    "G1": {
         "joint_state_order": [
             "idx01_body_joint1",
             "idx02_body_joint2",
@@ -162,7 +268,8 @@
             "idx39_gripper_l_inner_joint0",
             "idx49_gripper_l_outer_joint0",
             "idx79_gripper_r_inner_joint0",
-            "idx89_gripper_r_outer_joint0"],
+            "idx89_gripper_r_outer_joint0"
+        ],
         "arm_joint_names": [
             "idx21_arm_l_joint1",
             "idx22_arm_l_joint2",

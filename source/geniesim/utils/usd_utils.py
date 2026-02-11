@@ -83,7 +83,7 @@ def collect_physics(physics_info):
         physics_info["articulation"] = []
         physics_info["rigidbody"] = []
 
-    ignore_keys = ["background", "G1", "G2", "genie"]
+    ignore_keys = ["background", "G1", "G2", "genie", "Taks_T1"]
     stage = omni.usd.get_context().get_stage()
     for prim in stage.Traverse():
         prim_path = str(prim.GetPrimPath())

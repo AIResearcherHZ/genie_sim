@@ -298,7 +298,50 @@ A: 确保启动 server 时加了 --enable_curobo True 参数，
    并且 cuRobo 配置文件 curobo/configs/robot/Taks_T1_omnipicker.yml 存在且路径正确。
    cuRobo 使用 Taks_T1_omnipicker.urdf 中的运动学链计算 IK。
 
-十四、已修改文件清单（Taks_T1 集成）
+十四、IK-SDK 说明
+------------------------------
+IK-SDK 用于逆运动学求解，支持 G1、G2 和 Taks_T1 三种机器人。
+
+14.1 文件路径
+  IK-SDK 目录:
+    source/geniesim/utils/IK-SDK/G1_NO_GRIPPER.urdf
+    source/geniesim/utils/IK-SDK/G2_NO_GRIPPER.urdf
+    source/geniesim/utils/IK-SDK/Taks_T1_NO_GRIPPER.urdf  [新增]
+    source/geniesim/utils/IK-SDK/g1_solver.yaml
+    source/geniesim/utils/IK-SDK/g2_solver.yaml
+    source/geniesim/utils/IK-SDK/taks_t1_solver.yaml       [新增]
+
+  urdf_solver 目录 (ikfk_utils.py 使用):
+    source/geniesim/utils/urdf_solver/G1_NO_GRIPPER.urdf
+    source/geniesim/utils/urdf_solver/Taks_T1_NO_GRIPPER.urdf  [新增]
+    source/geniesim/utils/urdf_solver/g1_solver.yaml
+    source/geniesim/utils/urdf_solver/taks_t1_solver.yaml       [新增]
+
+14.2 IKFKSolver 使用
+  from geniesim.utils.ikfk_utils import IKFKSolver
+  solver = IKFKSolver(arm_init, head_init, waist_init, robot_cfg="Taks_T1_omnipicker")
+  joint_actions = solver.eef_actions_to_joint(eef_actions, arm_states, head_pos)
+
+14.3 Taks_T1 IK 活动关节
+  头部: neck_yaw_joint, neck_roll_joint, neck_pitch_joint
+  左臂: left_shoulder_pitch/roll/yaw, left_elbow, left_wrist_roll/yaw/pitch
+  右臂: right_shoulder_pitch/roll/yaw, right_elbow, right_wrist_roll/yaw/pitch
+
+十五、USD 资产生成说明
+------------------------------
+  USD/USDA 资产需要在 Isaac Sim 中通过 UrdfConverter 从 URDF 生成。
+  已创建转换脚本: scripts/convert_taks_t1_urdf_to_usd.py
+
+  使用方法:
+    <isaac_sim_path>/python.sh scripts/convert_taks_t1_urdf_to_usd.py
+    # 或指定自定义路径:
+    <isaac_sim_path>/python.sh scripts/convert_taks_t1_urdf_to_usd.py \
+      --urdf <urdf_path> --output <output_dir>
+
+  输入: source/geniesim/app/robot_cfg/Taks_T1_omnipicker/Taks_T1_omnipicker.urdf
+  输出: source/geniesim/assets/robot/Taks_T1_omnipicker/robot.usd, robot.usda
+
+十六、已修改文件清单（Taks_T1 集成）
 ------------------------------
 新增文件:
   - source/geniesim/app/robot_cfg/Taks_T1_omnipicker.json
@@ -307,6 +350,12 @@ A: 确保启动 server 时加了 --enable_curobo True 参数，
   - source/geniesim/app/curobo/configs/robot/Taks_T1_omnipicker.yml
   - source/geniesim/benchmark/config/eval_tasks/table_task_taks_t1.json
   - source/geniesim/assets/robot/Taks_T1_omnipicker/config.yaml
+  - source/geniesim/utils/IK-SDK/Taks_T1_NO_GRIPPER.urdf
+  - source/geniesim/utils/IK-SDK/taks_t1_solver.yaml
+  - source/geniesim/utils/urdf_solver/Taks_T1_NO_GRIPPER.urdf
+  - source/geniesim/utils/urdf_solver/taks_t1_solver.yaml
+  - scripts/convert_taks_t1_urdf_to_usd.py
+  - source/teleop/utils/name_utils.py (添加 TAKS_T1_JOINT_NAMES)
 
 修改文件:
   - source/geniesim/utils/name_utils.py                          (添加 TAKS_T1 关节名定义)
@@ -328,3 +377,14 @@ A: 确保启动 server 时加了 --enable_curobo True 参数，
   - source/geniesim/plugins/ader/action/custom/pickup_on_gripper.py  (夹爪路径支持)
   - source/geniesim/plugins/ader/action/custom/stable_grasp.py       (夹爪路径支持)
   - source/geniesim/plugins/ader/action/custom/gripper_passing.py    (夹爪路径支持)
+  - source/geniesim/utils/ikfk_utils.py                          (IKFKSolver 支持 Taks_T1)
+  - source/geniesim/utils/data_courier.py                        (robot_name 可配置 + 观测图像支持)
+  - source/geniesim/utils/infer_pre_process.py                   (TaskInfo 支持 Taks_T1)
+  - source/geniesim/utils/usd_utils.py                           (ignore_keys 添加 Taks_T1)
+  - source/data_collection/config/robot_cfg/robot_joint_names.json (添加 Taks_T1 关节配置)
+  - source/data_collection/server/command_controller.py          (viewport/joint/camera 支持)
+  - source/data_collection/client/robot/omni_robot.py            (robot_names_key 支持 Taks_T1)
+  - source/data_collection/client/robot/client.py                (Jacobian 计算支持 Taks_T1)
+  - source/data_collection/server/recording/extract_ros_bag.py   (关节重排序/相机名支持)
+  - source/teleop/utils/ros_nodes.py                             (config_robot 支持 Taks_T1)
+  - source/teleop/data_recording/extract_ros_bag.py              (相机文件名支持 Taks_T1)
